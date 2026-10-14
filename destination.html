@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Destination – Sumanth's travels</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230e1b2e'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23ffb81c'/%3E%3C/svg%3E">
+
+  <!-- Applies the saved (or system) theme before first paint, so dark-mode visitors don't see a white flash -->
+  <script>try{document.documentElement.dataset.theme=localStorage.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){}</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&amp;display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Swiper (photo slider), your content, then the site engine -->
+  <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script defer src="data.js"></script>
+  <script defer src="script.js"></script>
+</head>
+
+<body data-page="destination">
+  <header class="bar">
+    <a class="logo" href="index.html">Sumanth</a>
+    <nav aria-label="Main">
+      <a href="index.html#stats">Stats</a>
+      <a href="index.html#map">Map</a>
+      <a href="index.html#trips">Trips</a>
+    </nav>
+    <button class="theme" id="theme" type="button" aria-label="Switch to dark mode">◐</button>
+  </header>
+
+  <!-- TEMPLATE: this one page serves every destination. script.js reads ?id=italy from the URL,
+       finds that entry in data.js, and fills in the title, photo slider, Highlights, Favorite memory and the custom section. -->
+  <main class="wrap" id="dest">
+    <p class="note">Loading…</p>
+  </main>
+
+  <footer class="foot wrap">© <span id="year"></span> Sumanth</footer>
+</body>
+</html>
