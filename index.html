@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sumanth – Travel portfolio</title>
+  <meta name="description" content="Sumanth's travel portfolio: 17 countries and 3 of the 7 world wonders.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230e1b2e'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23ffb81c'/%3E%3C/svg%3E">
+
+  <!-- Applies the saved (or system) theme before first paint, so dark-mode visitors don't see a white flash -->
+  <script>try{document.documentElement.dataset.theme=localStorage.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){}</script>
+
+  <!-- Fonts: Archivo (interface + headings) and Newsreader (personal writing) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&amp;display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Run in this order once the page is parsed: Leaflet map library, your content, the site engine -->
+  <script defer src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script defer src="data.js"></script>
+  <script defer src="script.js"></script>
+</head>
+
+<body data-page="home">
+  <header class="bar">
+    <a class="logo" href="#top">Sumanth</a>
+    <nav aria-label="Main">
+      <a href="#stats">Stats</a>
+      <a href="#map">Map</a>
+      <a href="#trips">Trips</a>
+    </nav>
+    <button class="theme" id="theme" type="button" aria-label="Switch to dark mode">◐</button>
+  </header>
+
+  <main id="top">
+    <!-- Hero: edit the name and bio right here -->
+    <section class="hero wrap">
+      <h1>Sumanth</h1>
+      <p class="bio">I've been to 17 countries across Asia, the Middle East, Europe and North America, and I've stood in front of 3 of the 7 New Wonders of the World. This is where I keep the photos, the favorite memories and the tips I'd give a friend.</p>
+      <p class="cta">
+        <a class="btn" href="#map">See the map</a>
+        <a class="btn alt" href="#trips">Browse trips</a>
+      </p>
+    </section>
+
+    <!-- Filled in by script.js from data.js -->
+    <section id="stats" class="wrap">
+      <h2>Travel stats</h2>
+      <div class="stats" id="statsBox"></div>
+    </section>
+
+    <section id="map" class="wrap">
+      <h2>Where I've been</h2>
+      <p class="hint">Click a highlighted country or pin to open its page. On touch screens, use two fingers to move the map.</p>
+      <div id="mapBox" role="region" aria-label="Map of visited countries"></div>
+    </section>
+
+    <section id="trips" class="wrap">
+      <h2>All trips</h2>
+      <div class="filters" id="filters" role="group" aria-label="Filter trips"></div>
+      <div class="grid" id="grid"></div>
+      <p class="note" id="empty" hidden>No trips match these filters. Pick another continent or turn off World wonders.</p>
+    </section>
+  </main>
+
+  <footer class="foot wrap">© <span id="year"></span> Sumanth</footer>
+</body>
+</html>
