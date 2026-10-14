@@ -1,0 +1,122 @@
+/* style.css — "ink on paper" by day, "departure board" by night.
+   1 Tokens · 2 Base · 3 Header · 4 Hero · 5 Stats · 6 Map · 7 Trips · 8 Destination page · 9 Footer & motion */
+
+/* 1. TOKENS — change these to re-theme the whole site */
+:root {
+  --bg: #f5f7fa; --ink: #0e1b2e; --mute: #5a687c; --line: #d9dfe8;
+  --lit: #0e1b2e;     /* "switched on" color: dots, map highlights, active filter */
+  --amber: #ffb81c;   /* signal color: map pins and tags */
+  --sans: "Archivo", system-ui, sans-serif;
+  --serif: "Newsreader", Georgia, serif;  /* the personal voice: bio, tagline, memory */
+  --pad: clamp(1.25rem, 5vw, 3rem);
+  color-scheme: light;
+}
+[data-theme="dark"] {
+  --bg: #0a121f; --ink: #eaf0f8; --mute: #94a3ba; --line: #22304a; --lit: #ffb81c;
+  color-scheme: dark;
+}
+
+/* 2. BASE */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+::selection { background: var(--amber); color: #0e1b2e; }
+:focus-visible { outline: 3px solid var(--lit); outline-offset: 3px; }
+h1, h2, h3 { margin: 0; line-height: 1.05; }
+h1 { font-size: clamp(3rem, 2.2rem + 6vw, 7rem); font-weight: 800; font-stretch: 125%; letter-spacing: -0.03em; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; font-stretch: 112%; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+.wrap { max-width: 1200px; margin-inline: auto; padding: clamp(2.5rem, 7vw, 5rem) var(--pad); }
+.hint { color: var(--mute); max-width: 42em; margin: -0.75rem 0 1.25rem; }
+.note { color: var(--mute); }
+.tag { margin-left: 0.5rem; padding: 0.1rem 0.5rem; border-radius: 3px; background: var(--amber); color: #0e1b2e; font-size: 0.75rem; font-weight: 600; }
+
+/* Photo box. If the image file is missing, script.js adds .none and the name shows on a gradient. */
+.ph { position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 4px; background: linear-gradient(145deg, #12294a, #3c6e9c); }
+.ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.ph.none::after { content: attr(data-label); position: absolute; inset: 0; display: grid; place-items: center; padding: 1rem; text-align: center; color: #fff; font: 700 1.25rem var(--sans); font-stretch: 125%; }
+
+/* 3. HEADER */
+.bar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 1rem; padding: 0.75rem var(--pad); background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.logo { margin-right: auto; font-weight: 800; font-stretch: 125%; text-decoration: none; }
+.bar nav { display: flex; gap: 1rem; font-size: 0.95rem; }
+.bar nav a { color: var(--mute); text-decoration: none; }
+.bar nav a:hover { color: var(--ink); }
+.theme { width: 2.5rem; height: 2.5rem; border: 1px solid var(--line); border-radius: 50%; background: none; color: var(--ink); font-size: 1.1rem; cursor: pointer; }
+
+/* 4. HERO */
+.hero { padding-top: clamp(3rem, 10vw, 7rem); }
+.bio { max-width: 34em; margin: 1.5rem 0 0; font: 400 clamp(1.25rem, 2.2vw, 1.6rem) / 1.5 var(--serif); }
+.cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 2rem 0 0; }
+.btn { padding: 0.75rem 1.4rem; border: 1px solid var(--lit); border-radius: 99px; background: var(--lit); color: var(--bg); font-weight: 600; text-decoration: none; }
+.btn.alt { border-color: var(--line); background: none; color: var(--ink); }
+
+/* 5. STATS — three trackers: 193 dots, 7 wonders, continents bar */
+.stats { display: grid; gap: 2.5rem; }
+.stat { padding-top: 1rem; border-top: 1px solid var(--line); }
+.num { margin: 0; font: 800 clamp(3rem, 6vw, 4.5rem) / 1 var(--sans); font-stretch: 125%; letter-spacing: -0.03em; }
+.num small { color: var(--mute); font-size: 0.35em; font-weight: 500; letter-spacing: 0; }
+.stat h3 { margin: 0.4rem 0 1rem; font-size: 1rem; font-weight: 600; }
+.dots { display: grid; grid-template-columns: repeat(20, 1fr); gap: 5px; }
+.dots i { aspect-ratio: 1; border-radius: 50%; background: var(--line); }
+.dots i.on { background: var(--lit); }
+.wonders, .regions { display: grid; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+.wonders li { display: flex; align-items: center; gap: 0.6rem; color: var(--mute); }
+.wonders li::before { content: ""; width: 0.9rem; height: 0.9rem; border: 2px solid var(--line); border-radius: 50%; }
+.wonders li.on { color: var(--ink); font-weight: 600; }
+.wonders li.on::before { border-color: var(--lit); background: var(--lit); }
+.seg { display: flex; gap: 3px; height: 0.9rem; margin-bottom: 1rem; }
+.seg i { border-radius: 2px; background: var(--lit); opacity: var(--o); }
+.regions li { display: flex; align-items: center; gap: 0.6rem; }
+.regions li::before { content: ""; width: 0.9rem; height: 0.9rem; border-radius: 50%; background: var(--lit); opacity: var(--o); }
+.regions b { margin-left: auto; }
+@media (min-width: 900px) { .stats { grid-template-columns: 1.6fr 1fr 1fr; gap: 3rem; } }
+
+/* 6. MAP — Leaflet adjusted to match the theme */
+#mapBox { height: min(70vh, 560px); min-height: 340px; isolation: isolate; border-radius: 6px; background: var(--line); }
+.leaflet-container { font-family: var(--sans); }
+.country { fill: var(--lit); fill-opacity: 0.55; stroke: var(--lit); stroke-width: 1; }
+.country:hover { fill-opacity: 0.85; }
+.pin { fill: var(--amber); fill-opacity: 1; stroke: #0e1b2e; stroke-width: 2; }
+.leaflet-tooltip { border: 0; background: var(--ink); color: var(--bg); box-shadow: none; font-weight: 600; }
+.leaflet-tooltip::before { display: none; }
+.leaflet-bar a { border-color: var(--line); background: var(--bg); color: var(--ink); }
+.leaflet-bar a:hover { background: var(--line); }
+.leaflet-bar a.leaflet-disabled { background: var(--bg); color: var(--mute); }
+.leaflet-container .leaflet-control-attribution { background: var(--bg); color: var(--mute); }
+.leaflet-container .leaflet-control-attribution a { color: var(--ink); }
+
+/* 7. TRIPS — filter chips + grid */
+.filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+.chip { padding: 0.5rem 1rem; border: 1px solid var(--line); border-radius: 99px; background: none; color: var(--ink); font: 500 0.9rem var(--sans); cursor: pointer; }
+.chip[aria-pressed="true"] { border-color: var(--lit); background: var(--lit); color: var(--bg); }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 1rem; }
+.trip { text-decoration: none; }
+.trip[hidden] { display: none; }
+.trip h3 { margin: 0.75rem 0 0.15rem; font-size: 1.15rem; font-weight: 700; }
+.trip p { margin: 0; color: var(--mute); font-size: 0.9rem; }
+.trip:hover h3 { text-decoration: underline; text-underline-offset: 0.2em; }
+.trip:hover img { transform: scale(1.04); }
+@media (min-width: 720px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem 1.5rem; } }
+@media (min-width: 1040px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* 8. DESTINATION PAGE */
+.back { display: inline-block; margin-bottom: 2rem; color: var(--mute); }
+.back::before { content: "←  "; }
+#dest h1 { font-size: clamp(2.25rem, 8vw, 5rem); font-stretch: 112%; overflow-wrap: anywhere; }
+.tagline { max-width: 30em; margin: 1rem 0 0; font: italic 400 clamp(1.25rem, 2.4vw, 1.75rem) / 1.4 var(--serif); }
+.meta { margin: 1rem 0 2.5rem; color: var(--mute); }
+.swiper { --swiper-navigation-color: #fff; --swiper-navigation-size: 26px; border-radius: 6px; }
+.swiper-slide { width: min(82vw, 780px); transition: opacity 0.4s; }
+.swiper-slide:not(.swiper-slide-active) { opacity: 0.4; }
+.swiper-slide .ph { aspect-ratio: 3 / 2; }
+.swiper-pagination-fraction { color: #fff; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); }
+.block { display: grid; gap: 0.75rem 2rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.block h2 { margin: 0; font-size: 1rem; }
+.block ul { display: grid; gap: 0.5rem; max-width: 40em; margin: 0; padding-left: 1.1rem; }
+.memory { max-width: 34em; margin: 0; font: italic 400 clamp(1.3rem, 2.4vw, 1.8rem) / 1.5 var(--serif); }
+@media (min-width: 800px) { .block { grid-template-columns: 1fr 3fr; } }
+
+/* 9. FOOTER & MOTION */
+.foot { padding-block: 2rem; border-top: 1px solid var(--line); color: var(--mute); font-size: 0.9rem; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
